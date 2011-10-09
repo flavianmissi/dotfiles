@@ -74,8 +74,6 @@ prompt
 
 [[ -s "/Users/flavia.carlette/.rvm/scripts/rvm" ]] && source "/Users/flavia.carlette/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 
-export PYTHONPATH=$HOME/projects/publicacao-core/publicacao:$HOME/projects/dynamo:$HOME/lib/python:$PYTHONPATH
-export VIRTUOSO_HOME=/usr/local/Cellar/virtuoso/6.1.2
 export NODE_PATH=/usr/local/lib/node_modules
 # for chromedriver
 export PATH=$PATH:$HOME/bin
