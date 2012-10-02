@@ -60,8 +60,6 @@ function prompt {
 	local CYAN="\[\033[0;36m\]"
 	local WHITE="\[\033[0;37m\]"
 	local WHITEBOLD="\[\033[1;37m\]"
-    #export PS1="${WHITE}\$(parse_current_rvm)${WHITEBOLD}flavia ${RED}[${GREEN}\w${RED}] ${WHITE}\$(parse_git_branch_with_brackets)${WHITE}\$(parse_hg_branch_with_brackets) ${YELLOW}$ \[\e[m\]\[\e[m\]"
-	# \[\033[01;31m\]\w\[\033[00m\]\n${debian_chroot:+($debian_chroot)}
 	export PS1="\[\033[01;34m\]\u\[\033[01;32m\]@\[\033[01;34m\]\h\[\033[00m\]${PURPLE}[\W]${CYAN}$(parse_git_branch_with_brackets)${BLUE}\$${WHITE} "
 }
 prompt
