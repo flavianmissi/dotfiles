@@ -1,0 +1,17 @@
+caption always
+#caption always "%{= kw}%-w%{= BW}%n %t%{-}%+w %-= %c"
+startup_message off
+termcapinfo vt100 dl=5\E[M
+termcapinfo xterm*|rxvt*|kterm*|Eterm* hs:ts=\E]0;:fs=\007:ds=\E]0;\007
+termcapinfo xterm*|linux*|rxvt*|Eterm* OP
+termcapinfo xterm 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+autodetach on
+
+screen -t code    0 mvim -v
+screen -t tests   1
+screen -t server  2
+screen -t other   3
+
+select 0
+
+defscrollback 20000
