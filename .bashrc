@@ -11,7 +11,6 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;37'
 alias grep='grep --color=auto' # Always highlight grep search term
-alias ls='ls --color'
 alias bzr=cobzr
 
 parse_hg_branch_with_brackets() {
