@@ -62,12 +62,12 @@ export VIRTUALENVWRAPPER_PYTHON=`which python2.7`
 source `which virtualenvwrapper.sh`
 
 # tsuru client completion
-source $GOPATH/src/github.com/globocom/tsuru/misc/bash-completion.d/tsuru
+# source $GOPATH/src/github.com/globocom/tsuru/misc/bash-completion.d/tsuru
 # crane client completion
-source $GOPATH/src/github.com/globocom/tsuru/misc/bash-completion.d/crane
+# source $GOPATH/src/github.com/globocom/tsuru/misc/bash-completion.d/crane
 
 # login stuff
-source $HOME/.login_stuff
+# source $HOME/.login_stuff
 
 # tsuru project specific
 function cd_tsuru {
