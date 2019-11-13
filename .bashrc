@@ -54,8 +54,6 @@ function prompt {
 }
 prompt
 
-export PYTHONPATH=$HOME/projects/publicacao-core/publicacao:$HOME/projects/dynamo:$HOME/lib/python:$PYTHONPATH
-
 source ~/git-completion.bash
 
 export VIRTUALENVWRAPPER_PYTHON=`which python2.7`
