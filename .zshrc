@@ -1,16 +1,30 @@
+source ${HOME}/dev/dotfiles/antigen.zsh
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+#
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle command-not-found
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-autosuggestions
+
+antigen apply
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/flavia/.oh-my-zsh"
+export ZSH="${HOME}/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(history)
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
@@ -84,7 +98,6 @@ plugins=(
     brew
     npm
     golang
-    sdkman
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -95,19 +108,21 @@ source $ZSH/oh-my-zsh.sh
 
 autoload -U colors && colors
 
+# brew install zsh-syntax-highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# brew install zsh-autosuggestions
 source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-source /usr/local/etc/zsh-kubectl-prompt/kubectl.zsh
-source /usr/local/opt/kube-ps1/share/kube-ps1.sh
+# source /usr/local/etc/zsh-kubectl-prompt/kubectl.zsh
+# source /usr/local/opt/kube-ps1/share/kube-ps1.sh
 
-RPROMPT=$RPROMPT'$(kube_ps1)'
+# RPROMPT=$RPROMPT'$(kube_ps1)'
 
-source <(kubectl completion zsh)
+# source <(kubectl completion zsh)
 
 # google cloud sdk gcloud
 
-source '/Users/flavia/google-cloud-sdk/path.zsh.inc'
+# source "${HOME}/google-cloud-sdk/path.zsh.inc"
 
 # avoid locale related warnings
 export LC_ALL=en_US.UTF-8
@@ -170,7 +185,7 @@ export PATH="${PATH}:${GOPATH}/bin"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # heroku autocomplete setup
-HEROKU_AC_ZSH_SETUP_PATH=/Users/flavia/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+HEROKU_AC_ZSH_SETUP_PATH=${HOME}/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
 
 # pyenv stuff
 export PYENV_ROOT="$HOME/.pyenv"
