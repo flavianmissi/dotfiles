@@ -97,7 +97,7 @@ plugins=(
     #git
     brew
     npm
-    golang
+    #golang
 )
 
 source $ZSH/oh-my-zsh.sh

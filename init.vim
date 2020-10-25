@@ -1,101 +1,56 @@
-set nocompatible
-filetype off
-"Set
-let $VIMHOME = $HOME."/.vim"
+"automated installation of vimplug if not installed
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source ~/.config/nvim/init.vim
+endif
+
 set mouse=a
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.config/nvim/plugged')
 
-"Plugin 'Vundle.vim'
+" smooth scroll
+Plug 'psliwka/vim-smoothie'
 
-Plugin 'scrooloose/nerdtree'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/syntastic'
-Plugin 'pangloss/vim-javascript'
-Plugin 'kien/ctrlp.vim'
-Plugin 'klen/python-mode'
-Plugin 'elzr/vim-json'
-Plugin 'powerline/powerline'
-Plugin 'plentiform/go-ide'
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-surround'
 
-Plugin 'html5.vim'
-Plugin 'vim-airline'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'machakann/vim-sandwich'
+Plug 'jiangmiao/auto-pairs'
+Plug 'preservim/nerdcommenter'
 
-" Plugin 'vim-autoclose'
-" Plugin 'vim-go'
-Plugin 'fatih/vim-go'
-Plugin 'ncm2/ncm2-go'
-" Plugin 'vim-scala'
+" auto detect tabs/spaces to use in a file
+Plug 'tpope/vim-sleuth'
 
+Plug 'elzr/vim-json'
+" Plug 'powerline/powerline'
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+Plug 'vim-airline/vim-airline'
 
-let g:ctrlp_map = '<c-t>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:go_fmt_command = "goimports"
+Plug 'othree/html5.vim'
 
 
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
+" Plug 'fatih/vim-go'
+
+call plug#end()
+
 "
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to
-" auto-approve removal
+" General settings
 "
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
-"Setting PYTHONPATH
-let $PYTHONPATH .= ":".$VIMHOME."/python"
-
-"load bundle plugins
-call pathogen#infect()
-
-"Vundle
-
-"add go vim plugins
-set rtp+=$GOROOT/misc/vim
-
-syntax on
-"filetype on
-filetype indent on
-filetype plugin on
-
-"Hidden mode
-set hidden
-set number
-
-"Bad whitespaces
+" Highlight bad white spaces
 autocmd BufEnter * highlight BadWhitespace ctermbg=red guibg=red
 autocmd BufEnter * match BadWhitespace /^\t\+/
 autocmd BufEnter * match BadWhitespace /\s\+$/
 
-"Search settings
+" Search settings
 set hlsearch
 set incsearch
 
-"Setting up tab settings
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set tabpagemax=20
-set showtabline=4
-set autoindent
-set expandtab
-set smartindent
-set smarttab
-set wildmenu
-set wildmode=list:longest
-set cursorline
-
-"autocmd FileType * set noexpandtab
-"autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab|set softtabstop=4|set smartindent|set smarttab
+set hidden
 
 " read open files again when changed outside Vim
 set autoread
@@ -115,26 +70,202 @@ set undodir=/var/vim_undo
 " folding
 set foldmethod=indent
 
-"Start mappings
-"==============
-"NERDTree
-nmap <silent> <c-p> :NERDTreeToggle<CR>
-
-" Removes trailing spaces
+" Removes trailing spaces.
+"
+" Invoke it with `:call TrimWhiteSpaces`
 function TrimWhiteSpaces()
     %s/\s*$//
     ''
 :endfunction
 
-"Colorscheme
-set background=dark
 
-if has("gui_running")
+"
+" Plugin setup
+"
 
-    colorscheme macvim
-    "guifont
-    set guifont=Monaco:h12
 
-    set guioptions=egmt
-    "set fuoptions=maxvert,maxhorz
+"
+" Go setup
+"
+" let g:go_fmt_command = "goimports"
+
+"
+" nerdtree setup
+"
+let NERDTreeIgnore = ['\.pyc$']
+
+"
+" FZF setup
+"
+
+let mapleader = " "
+nnoremap <silent> <Leader><Space> :Files<CR>
+
+
+"
+" pyenv neovim setup
+"
+let g:python_host_prog = '/Users/flamis/.pyenv/versions/2.7.18/bin/python'
+let g:python3_host_prog = '/Users/flamis/.pyenv/versions/3.8.5/bin/python'
+
+
+"
+" CoC setup
+"
+" All the way to the end of the file!
+"
+
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
 endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
