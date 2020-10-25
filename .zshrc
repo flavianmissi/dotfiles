@@ -195,8 +195,13 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
-# for pyenv-virtualenvwrapper
-export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
-# python virtualenvwrapper
-export WORKON_HOME=~/.virtual-envs
+# initialize pyenv-virtualenv
+pyenv virtualenvwrapper_lazy
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+export WORKON_HOME=~/.virtualenvs
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
