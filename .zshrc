@@ -6,9 +6,12 @@ antigen use oh-my-zsh
 # Bundles from the default repo (robbyrussell's oh-my-zsh).
 antigen bundle command-not-found
 
-# Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
+
+# has to be the last bundle!!
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+antigen theme romkatv/powerlevel10k
 
 antigen apply
 
@@ -24,7 +27,6 @@ export ZSH="${HOME}/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="powerlevel10k/powerlevel10k"
 
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(history)
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
@@ -108,11 +110,6 @@ source $ZSH/oh-my-zsh.sh
 
 autoload -U colors && colors
 
-# brew install zsh-syntax-highlighting
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# brew install zsh-autosuggestions
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 # source /usr/local/etc/zsh-kubectl-prompt/kubectl.zsh
 # source /usr/local/opt/kube-ps1/share/kube-ps1.sh
 
@@ -143,19 +140,9 @@ end_feature_branch() {
     echo "done."
 }
 
-# don't alias python and pip 3 - use pyenv instead (see below)
-# alias pip=/usr/local/bin/pip3
-# alias python=/usr/local/bin/python3
 alias x="exit"
 alias sz="source ~/.zshrc"
 alias hc="history -c"
-
-#Include Z
-if command -v brew >/dev/null 2>&1; then
-  # Load rupa's z if installed
-  [ -f $(brew --prefix)/etc/profile.d/z.sh ] && source $(brew --prefix)/etc/profile.d/z.sh
-fi
-
 
 export GOPATH=$(go env GOPATH)
 export PATH="${PATH}:${GOPATH}/bin"
@@ -166,11 +153,11 @@ export PATH="${PATH}:${GOPATH}/bin"
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -185,23 +172,19 @@ export PATH="${PATH}:${GOPATH}/bin"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # heroku autocomplete setup
-HEROKU_AC_ZSH_SETUP_PATH=${HOME}/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+# HEROKU_AC_ZSH_SETUP_PATH=${HOME}/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
 
-# pyenv stuff
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-
+# setup pyenv
 if command -v pyenv 1>/dev/null 2>&1; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
+  # initialize pyenv-virtualenv
+  pyenv virtualenvwrapper_lazy
+  export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 fi
 
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-# initialize pyenv-virtualenv
-pyenv virtualenvwrapper_lazy
-export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 export WORKON_HOME=~/.virtualenvs
 
+# brew install fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
