@@ -32,6 +32,8 @@ Plug 'vim-airline/vim-airline'
 
 Plug 'othree/html5.vim'
 
+Plug 'a-vrma/black-nvim', {'do': ':UpdateRemotePlugins'}
+
 
 " Plug 'fatih/vim-go'
 
@@ -100,13 +102,6 @@ let NERDTreeIgnore = ['\.pyc$']
 
 let mapleader = " "
 nnoremap <silent> <Leader><Space> :Files<CR>
-
-
-"
-" pyenv neovim setup
-"
-let g:python_host_prog = '/Users/flamis/.pyenv/versions/2.7.18/bin/python'
-let g:python3_host_prog = '/Users/flamis/.pyenv/versions/3.8.5/bin/python'
 
 
 "

@@ -152,6 +152,9 @@ alias hc="history -c"
 export GOPATH=$(go env GOPATH)
 export PATH="${PATH}:${GOPATH}/bin"
 
+export PYTHON3_BIN="${HOME}/Library/Python/3.8/bin"
+export PATH="${PATH}:${PYTHON3_BIN}"
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -184,12 +187,21 @@ if command -v pyenv 1>/dev/null 2>&1; then
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
+
   # initialize pyenv-virtualenv
   pyenv virtualenvwrapper_lazy
   export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 fi
 
-export WORKON_HOME=~/.virtualenvs
+# setup virtualenvwrapper
+# pip3 install --user virtualenvwrapper
+if [ -f ${PYTHON3_BIN}/virtualenvwrapper_lazy.sh ]; then
+  export VIRTUALENVWRAPPER_PYTHON=$(which python3)
+  export PROJECT_HOME=${HOME}/dev
+  export WORKON_HOME=${HOME}/.virtualenvs
+  source ${PYTHON3_BIN}/virtualenvwrapper_lazy.sh
+fi
+
 
 # brew install fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
