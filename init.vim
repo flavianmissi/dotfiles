@@ -34,8 +34,7 @@ Plug 'othree/html5.vim'
 
 Plug 'a-vrma/black-nvim', {'do': ':UpdateRemotePlugins'}
 
-
-" Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
