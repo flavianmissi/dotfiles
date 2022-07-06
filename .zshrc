@@ -152,11 +152,6 @@ alias hc="history -c"
 export GOPATH=$(go env GOPATH)
 export PATH="${PATH}:${GOPATH}/bin"
 
-export PYTHON3_BIN="${HOME}/Library/Python/3.8/bin"
-export PATH="${PATH}:${PYTHON3_BIN}"
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -166,6 +161,21 @@ if [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
+
+# setup pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+# brew install fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# OR
+# sudo dnf install fzf
+[ -f /usr/share/fzf/shell/key-bindings.zsh ] && source /usr/share/fzf/shell/key-bindings.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -178,33 +188,3 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# heroku autocomplete setup
-# HEROKU_AC_ZSH_SETUP_PATH=${HOME}/Library/Caches/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
-
-# setup pyenv
-if command -v pyenv 1>/dev/null 2>&1; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-
-  # initialize pyenv-virtualenv
-  pyenv virtualenvwrapper_lazy
-  export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-fi
-
-# setup virtualenvwrapper
-# pip3 install --user virtualenvwrapper
-if [ -f ${PYTHON3_BIN}/virtualenvwrapper_lazy.sh ]; then
-  export VIRTUALENVWRAPPER_PYTHON=$(which python3)
-  export PROJECT_HOME=${HOME}/dev
-  export WORKON_HOME=${HOME}/.virtualenvs
-  source ${PYTHON3_BIN}/virtualenvwrapper_lazy.sh
-fi
-
-
-# brew install fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
