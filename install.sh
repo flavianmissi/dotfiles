@@ -8,7 +8,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 # install antigen
 curl -L git.io/antigen > antigen.zsh
 chmod +x antigen.zsh
-./antigen.zsh
 
 # install pyenv
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
