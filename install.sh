@@ -29,6 +29,7 @@ omz reload
 # get the latest stable python version
 PYTHON_VERSION="$(pyenv install --list | awk '{ print $1 }' | grep -E '^3\.[0-9]+\.?[0-9]+$' | tail -1)"
 pyenv install "${PYTHON_VERSION}"
+pyenv global "${PYTHON_VERSION}"
 pip install -U pip
 pip install -r requirements-nvim.txt
 

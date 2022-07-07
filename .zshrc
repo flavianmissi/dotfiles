@@ -131,20 +131,6 @@ autoload -U colors && colors
 # avoid locale related warnings
 export LC_ALL=en_US.UTF-8
 
-#
-# custom functions
-#
-
-end_feature_branch() {
-    BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-    echo "switching to and pulling 'develop'..."
-    git checkout develop
-    git pull origin develop
-    echo "deleting local '${BRANCH_NAME}'..."
-    git branch -D ${BRANCH_NAME}
-    echo "done."
-}
-
 alias x="exit"
 alias sz="source ~/.zshrc"
 alias hc="history -c"
