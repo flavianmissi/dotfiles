@@ -40,7 +40,9 @@ ln -s "${PWD}/.gitconfig" "${HOME}/.gitconfig" &> /dev/null || true
 
 mkdir -p ~/.config/nvim
 cp ~/.config/nvim/init.vim ~/.config/nvim/init.vim.backup.$(date +"%Y%m%d_%H%M%S") &> /dev/null || true
-ln -s "${PWD}/init.vim" "${HOME}/.config/nvim/init.vim" &> /dev/null || true
+# do NOT use a symlink! doing so will cause neovim to lag a LOT when saving files.
+# ln -s "${PWD}/init.vim" "${HOME}/.config/nvim/init.vim" &> /dev/null || true
+cp "${PWD}/init.vim" "${HOME}/.config/nvim/init.vim" &> /dev/null || true
 
 python -m venv "${venv_dir}"
 source "${venv_dir}/bin/activate"
