@@ -148,11 +148,10 @@ else
   export EDITOR='nvim'
 fi
 
-# setup pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# active venv with all nvim requirements ++
+source ~/dev/dotfiles/environ # sets venv_dir
+venv_dir=~/.default-env
+source "${venv_dir}/bin/activate"
 
 # brew install fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
