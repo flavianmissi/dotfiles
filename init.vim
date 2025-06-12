@@ -51,9 +51,6 @@ set hidden
 " read open files again when changed outside Vim
 set autoread
 
-" which directory to use for the file browser
-set browsedir=current
-
 " show the cursor position all the time
 set ruler
 
