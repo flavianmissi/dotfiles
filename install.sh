@@ -10,7 +10,7 @@ if [ "${os}" == "Darwin" ]; then
 	brew install golang
 elif  [ "${os}" == "Linux" ]; then
 	command -v dnf &> /dev/null || { echo >&2 "can only run on fedora (didn't find dnf executable). aborting"; exit 1; }
-	sudo dnf install -y fzf golang
+	sudo dnf install -y fzf golang yq
 
 	# make zsh default shell in fedora, this must happen on a fedora CSB
 	sudo sss_override user-add $USER -s $(which zsh)
